@@ -1,0 +1,179 @@
+In file included from perf_sim.cpp:6:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+perf_sim.cpp: In function ‘void print_cpu_state(state_t*)’:
+perf_sim.cpp:21:28: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
+   21 |         printf("x%d: 0x%016x\n", r, state->XPR[r]);
+      |                        ~~~~^
+      |                            |
+      |                            unsigned int
+      |                        %016lx
+perf_sim.cpp:23:28: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘const float128_t’ [-Wformat=]
+   23 |         printf("f%d: 0x%016x\n", f, state->FPR[f]);
+      |                        ~~~~^
+      |                            |
+      |                            unsigned int
+perf_sim.cpp:26:23: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   26 |     printf("pc: 0x%016x\n", pc);
+      |                   ~~~~^     ~~
+      |                       |     |
+      |                       |     uint64_t {aka long unsigned int}
+      |                       unsigned int
+      |                   %016lx
+perf_sim.cpp: In function ‘int main()’:
+perf_sim.cpp:68:18: warning: format ‘%s’ expects argument of type ‘char*’, but argument 2 has type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} [-Wformat=]
+   68 |         printf("%s, ", ext);
+      |                 ~^
+      |                  |
+      |                  char*
+perf_sim.cpp:78:20: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘reg_t’ {aka ‘long unsigned int’} [-Wformat=]
+   78 |     printf("PC: 0x%x\n", start_pc);
+      |                   ~^     ~~~~~~~~
+      |                    |     |
+      |                    |     reg_t {aka long unsigned int}
+      |                    unsigned int
+      |                   %lx
+perf_sim.cpp:79:24: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘insn_bits_t’ {aka ‘long unsigned int’} [-Wformat=]
+   79 |     printf("opcode: 0x%x\n", start_inst->bits());
+      |                       ~^     ~~~~~~~~~~~~~~~~~~
+      |                        |                     |
+      |                        unsigned int          insn_bits_t {aka long unsigned int}
+      |                       %lx
+In file included from cfg.cc:4:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from csrs.cc:9:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from debug_module.cc:8:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from devices.cc:2:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from interactive.cc:8:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from mmu.cc:4:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+processor.cc:1272: warning: "DEFINE_INSN" redefined
+ 1272 | #define DEFINE_INSN(name)                                         \
+      | 
+In file included from processor.cc:4:
+processor.h:23: note: this is the location of the previous definition
+   23 | #define DEFINE_INSN(name)                                         \
+      | 
+In file included from processor.cc:10:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from sim.cc:5:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from insns/../insn_template.h:5,
+                 from insns/add.cc:3:
+insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from insns/../insn_template.h:5,
+                 from insns/addi.cc:3:
+insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from insns/../insn_template.h:5,
+                 from insns/ld.cc:3:
+insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from insns/../insn_template.h:5,
+                 from insns/sd.cc:3:
+insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
