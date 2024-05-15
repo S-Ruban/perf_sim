@@ -1,23 +1,16 @@
 arch/fetch.cpp: In function ‘void fetch(processor_t*, memif_t*, reg_t*)’:
-arch/fetch.cpp:44:30: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘reg_t’ {aka ‘long unsigned int’} [-Wformat=]
-   44 |             printf("PC: 0x%08x\topcode: 0x%08x\ticount=%d\n", fb.pc[i], fb.opcode[i], fb.ic[i]);
-      |                           ~~~^                                ~~~~~~~~
-      |                              |                                       |
-      |                              unsigned int                            reg_t {aka long unsigned int}
+arch/fetch.cpp:37:30: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘reg_t’ {aka ‘long unsigned int’} [-Wformat=]
+   37 |             printf("PC: 0x%08x\topcode: 0x%08x\ticount=%d\n", fetch_bundle[i].pc, fetch_bundle[i].inst->bits(), fetch_bundle[i].inst_cnt);
+      |                           ~~~^                                ~~~~~~~~~~~~~~~~~~
+      |                              |                                                |
+      |                              unsigned int                                     reg_t {aka long unsigned int}
       |                           %08lx
-arch/fetch.cpp:44:46: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘reg_t’ {aka ‘long unsigned int’} [-Wformat=]
-   44 |             printf("PC: 0x%08x\topcode: 0x%08x\ticount=%d\n", fb.pc[i], fb.opcode[i], fb.ic[i]);
-      |                                           ~~~^                          ~~~~~~~~~~~~
-      |                                              |                                     |
-      |                                              unsigned int                          reg_t {aka long unsigned int}
+arch/fetch.cpp:37:46: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘insn_bits_t’ {aka ‘long unsigned int’} [-Wformat=]
+   37 |             printf("PC: 0x%08x\topcode: 0x%08x\ticount=%d\n", fetch_bundle[i].pc, fetch_bundle[i].inst->bits(), fetch_bundle[i].inst_cnt);
+      |                                           ~~~^                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                              |                                                              |
+      |                                              unsigned int                                                   insn_bits_t {aka long unsigned int}
       |                                           %08lx
-processor.cc:1272: warning: "DEFINE_INSN" redefined
- 1272 | #define DEFINE_INSN(name)                                         \
-      | 
-In file included from processor.cc:4:
-processor.h:23: note: this is the location of the previous definition
-   23 | #define DEFINE_INSN(name)                                         \
-      | 
 In file included from perf_sim.cpp:6:
 mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
@@ -28,6 +21,13 @@ mmu.h:46:23: warning: default member initializers for bit-fields only available 
 mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
+processor.cc:1272: warning: "DEFINE_INSN" redefined
+ 1272 | #define DEFINE_INSN(name)                                         \
+      | 
+In file included from processor.cc:4:
+processor.h:23: note: this is the location of the previous definition
+   23 | #define DEFINE_INSN(name)                                         \
+      | 
 perf_sim.cpp: In function ‘void print_cpu_state(state_t*)’:
 perf_sim.cpp:24:28: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
    24 |         printf("x%d: 0x%016x\n", r, state->XPR[r]);
@@ -53,7 +53,27 @@ perf_sim.cpp:73:18: warning: format ‘%s’ expects argument of type ‘char*�
       |                 ~^
       |                  |
       |                  char*
-In file included from devices.cc:2:
+In file included from cfg.cc:4:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from csrs.cc:9:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from debug_module.cc:8:
 mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
       |                              ^
@@ -74,21 +94,17 @@ insns/../mmu.h:46:23: warning: default member initializers for bit-fields only a
 insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
-In file included from sim.cc:5:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
 In file included from mmu.cc:4:
 mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
       |                              ^
-In file included from cfg.cc:4:
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from devices.cc:2:
 mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
       |                              ^
@@ -96,33 +112,6 @@ mmu.h:46:23: warning: default member initializers for bit-fields only available 
    46 |   const bool hlvx : 1 {false};
       |                       ^
 mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-In file included from csrs.cc:9:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-In file included from insns/../insn_template.h:5,
-                 from insns/sd.cc:3:
-insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
 In file included from insns/../insn_template.h:5,
@@ -134,16 +123,6 @@ insns/../mmu.h:46:23: warning: default member initializers for bit-fields only a
    46 |   const bool hlvx : 1 {false};
       |                       ^
 insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-In file included from debug_module.cc:8:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
 In file included from processor.cc:10:
@@ -165,6 +144,27 @@ insns/../mmu.h:46:23: warning: default member initializers for bit-fields only a
    46 |   const bool hlvx : 1 {false};
       |                       ^
 insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from insns/../insn_template.h:5,
+                 from insns/sd.cc:3:
+insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from sim.cc:5:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
 In file included from interactive.cc:8:

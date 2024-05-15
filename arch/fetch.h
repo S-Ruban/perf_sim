@@ -1,10 +1,10 @@
 #include "../processor.h"
 
-struct fetch_bundle
+struct instruction
 {
-    reg_t pc[4];
-    reg_t opcode[4];
-    uint32_t ic[4];
+    insn_t *inst;
+    reg_t pc;
+    uint32_t inst_cnt;
 };
 
 static uint32_t ic_cntr = 0;
