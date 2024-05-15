@@ -12,6 +12,7 @@
 #include "insn_list.h"
 
 #include "arch/fetch.h"
+#include "arch/decoder.h"
 
 using namespace std;
 class simif_t;
@@ -75,13 +76,19 @@ int main()
     printf("\n");
     htif_hexwriter_t htif(2048, 1024, 1024);
     memif_t memif(&htif);
-    reg_t start_pc;
-    map<string, uint64_t> elf = load_elf("test.elf", &memif, &start_pc, 64);
-    target_endian<uint32_t> start_ib = memif.read_uint32(start_pc);
+    reg_t pc;
+
+    Fetch fetch_block = Fetch(cpu, &memif, 4, 4);
+    Decoder decoder = Decoder();
+
+    map<string, uint64_t> elf = load_elf("test.elf", &memif, &pc, 64);
+    // target_endian<uint32_t> start_ib = memif.read_uint32(pc);
 
     while (cycle < MAX_CYCLE)
     {
-        fetch(cpu, &memif, &start_pc);
+        // fetch(cpu, &memif, &start_pc);
+        decoder.decode(&fetch_block);
+        fetch_block.fetch(&pc);
         cycle++;
     }
 }
