@@ -10,10 +10,13 @@
 #include "fesvr/memif.h"
 #include "fesvr/htif_hexwriter.h"
 #include "insn_list.h"
-// #include "insns/addi.cc"
+
+#include "arch/fetch.h"
 
 using namespace std;
 class simif_t;
+
+#define MAX_CYCLE 100
 
 void print_cpu_state(state_t *state)
 {
@@ -39,6 +42,8 @@ std::vector<std::pair<reg_t, abstract_mem_t *>> make_mems(const std::vector<mem_
 
 int main()
 {
+    uint32_t cycle = 0;
+
     cache_sim_t *cst = new cache_sim_t(2, 4, 64, "L1D");
     cst->print_stats();
     const isa_parser_t *isa = new isa_parser_t("RV64GC", "M");
@@ -72,12 +77,11 @@ int main()
     memif_t memif(&htif);
     reg_t start_pc;
     map<string, uint64_t> elf = load_elf("test.elf", &memif, &start_pc, 64);
-    target_endian<uint32_t> start_ib = memif.read_uint32(0x1011a);
-    uint32_t ib = start_ib.from_le();
-    insn_t *start_inst = new insn_t((insn_bits_t)ib);
-    printf("PC: 0x%x\n", start_pc);
-    printf("opcode: 0x%x\n", start_inst->bits());
-    print_cpu_state(cpu->get_state());
-    reg_t r = fast_rv32i_addi(cpu, *start_inst, start_pc);
-    print_cpu_state(cpu->get_state());
+    target_endian<uint32_t> start_ib = memif.read_uint32(start_pc);
+
+    while (cycle < MAX_CYCLE)
+    {
+        fetch(cpu, &memif, &start_pc);
+        cycle++;
+    }
 }

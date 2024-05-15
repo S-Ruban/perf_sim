@@ -5,7 +5,7 @@ CC := gcc
 CXXFLAGS := -g
 CFLAGS := -g
 # Source directories
-SRC_DIRS := . ./fdt ./fesvr ./insns ./softfloat
+SRC_DIRS := . ./fdt ./fesvr ./insns ./softfloat ./arch
 # Source files
 CPP_SRC := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 CC_SRC := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cc))
