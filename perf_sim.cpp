@@ -79,10 +79,12 @@ int main()
     reg_t pc;
 
     Fetch fetch_block = Fetch(cpu, &memif, 4, 4);
-    Decoder decoder = Decoder();
+    Decoder decoder = Decoder(4, isa, cpu);
 
     map<string, uint64_t> elf = load_elf("test.elf", &memif, &pc, 64);
     // target_endian<uint32_t> start_ib = memif.read_uint32(pc);
+
+    print_cpu_state(cpu->get_state());
 
     while (cycle < MAX_CYCLE)
     {
@@ -91,4 +93,6 @@ int main()
         fetch_block.fetch(&pc);
         cycle++;
     }
+
+    print_cpu_state(cpu->get_state());
 }

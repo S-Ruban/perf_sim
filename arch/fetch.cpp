@@ -10,7 +10,6 @@ void Fetch::fetch(reg_t *pc)
     for (int i = 0; i < 4; i++)
         fetch_bundle[i] = new Instruction();
     int fb_dat = 0, fb_idx = 0;
-    printf("PC: %x\n", *pc);
     for (int fb_idx = 0; fb_idx < 4; fb_idx++)
     {
         if ((fb_dat > fetch_width - 1) || fetch_queue.size() == fetch_queue_size)
@@ -28,11 +27,10 @@ void Fetch::fetch(reg_t *pc)
         else
             fetch_bundle[fb_idx]->inst = new insn_t((insn_bits_t)((fetch_data[fb_dat].from_le())));
         fetch_queue.push(fetch_bundle[fb_idx]);
-        printf("PC: 0x%08x\topcode: 0x%08x\ticount=%d\n", fetch_bundle[fb_idx]->pc, fetch_bundle[fb_idx]->inst->bits(), fetch_bundle[fb_idx]->inst_cnt);
+        printf("FETCH:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\n", fetch_bundle[fb_idx]->pc, fetch_bundle[fb_idx]->inst->bits(), fetch_bundle[fb_idx]->inst_cnt);
         *pc += fetch_bundle[fb_idx]->inst->length();
         fb_dat++;
     }
-    printf("\n");
 }
 
 InstPtr Fetch::release_inst()

@@ -690,6 +690,7 @@ typedef struct
 std::string disassembler_t::disassemble(insn_t insn) const
 {
   const disasm_insn_t *disasm_insn = lookup(insn);
+  fprintf(stderr, "%s\n", disasm_insn->get_name());
   return disasm_insn ? disasm_insn->to_string(insn) : "unknown";
 }
 
