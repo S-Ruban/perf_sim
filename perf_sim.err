@@ -1,3 +1,13 @@
+In file included from perf_sim.cpp:6:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
 processor.cc:1272: warning: "DEFINE_INSN" redefined
  1272 | #define DEFINE_INSN(name)                                         \
       | 
@@ -18,15 +28,137 @@ arch/fetch.cpp:30:54: warning: format ‘%x’ expects argument of type ‘unsig
       |                                                      |                                                                          |
       |                                                      unsigned int                                                               insn_bits_t {aka long unsigned int}
       |                                                   %08lx
-In file included from insns/../insn_template.h:5,
-                 from insns/addi.cc:3:
-insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+arch/decoder.cpp: In member function ‘void Decoder::load_into_decode_queue(InstPtr)’:
+arch/decoder.cpp:17:35: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘reg_t’ {aka ‘long unsigned int’} [-Wformat=]
+   17 |     printf("DECODE:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\texe_unit: %d\t", ins->pc, ins->inst->bits(), ins->inst_cnt, ins->exe_unit);
+      |                                ~~~^                                              ~~~~~~~
+      |                                   |                                                   |
+      |                                   unsigned int                                        reg_t {aka long unsigned int}
+      |                                %08lx
+arch/decoder.cpp:17:51: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘insn_bits_t’ {aka ‘long unsigned int’} [-Wformat=]
+   17 |     printf("DECODE:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\texe_unit: %d\t", ins->pc, ins->inst->bits(), ins->inst_cnt, ins->exe_unit);
+      |                                                ~~~^                                       ~~~~~~~~~~~~~~~~~
+      |                                                   |                                                      |
+      |                                                   unsigned int                                           insn_bits_t {aka long unsigned int}
+      |                                                %08lx
+arch/decoder.cpp:19:24: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   19 |         printf("rs1: x%d\t", ins->inst->rs1());
+      |                       ~^     ~~~~~~~~~~~~~~~~
+      |                        |                   |
+      |                        int                 uint64_t {aka long unsigned int}
+      |                       %ld
+arch/decoder.cpp:21:24: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   21 |         printf("rs1: x%d\t", ins->inst->rvc_rs1());
+      |                       ~^     ~~~~~~~~~~~~~~~~~~~~
+      |                        |                       |
+      |                        int                     uint64_t {aka long unsigned int}
+      |                       %ld
+arch/decoder.cpp:23:24: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   23 |         printf("rs1: x%d\t", ins->inst->rvc_rs1s());
+      |                       ~^     ~~~~~~~~~~~~~~~~~~~~~
+      |                        |                        |
+      |                        int                      uint64_t {aka long unsigned int}
+      |                       %ld
+arch/decoder.cpp:25:24: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   25 |         printf("rs2: x%d\t", ins->inst->rs2());
+      |                       ~^     ~~~~~~~~~~~~~~~~
+      |                        |                   |
+      |                        int                 uint64_t {aka long unsigned int}
+      |                       %ld
+arch/decoder.cpp:27:24: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   27 |         printf("rs2: x%d\t", ins->inst->rvc_rs2());
+      |                       ~^     ~~~~~~~~~~~~~~~~~~~~
+      |                        |                       |
+      |                        int                     uint64_t {aka long unsigned int}
+      |                       %ld
+arch/decoder.cpp:29:24: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   29 |         printf("rs2: x%d\t", ins->inst->rvc_rs2s());
+      |                       ~^     ~~~~~~~~~~~~~~~~~~~~~
+      |                        |                        |
+      |                        int                      uint64_t {aka long unsigned int}
+      |                       %ld
+arch/decoder.cpp:31:24: warning: format ‘%d’ expects argument of type ‘int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   31 |         printf("rs3: x%d\t", ins->inst->rs3());
+      |                       ~^     ~~~~~~~~~~~~~~~~
+      |                        |                   |
+      |                        int                 uint64_t {aka long unsigned int}
+      |                       %ld
+arch/scoreboard.cpp: In member function ‘void Scoreboard::load_into_scoreboard(InstPtr)’:
+arch/scoreboard.cpp:12:39: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘reg_t’ {aka ‘long unsigned int’} [-Wformat=]
+   12 |     printf("SCOREBOARD:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\texe_unit: %d\n", ins->pc, ins->inst->bits(), ins->inst_cnt, ins->exe_unit);
+      |                                    ~~~^                                              ~~~~~~~
+      |                                       |                                                   |
+      |                                       unsigned int                                        reg_t {aka long unsigned int}
+      |                                    %08lx
+arch/scoreboard.cpp:12:55: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘insn_bits_t’ {aka ‘long unsigned int’} [-Wformat=]
+   12 |     printf("SCOREBOARD:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\texe_unit: %d\n", ins->pc, ins->inst->bits(), ins->inst_cnt, ins->exe_unit);
+      |                                                    ~~~^                                       ~~~~~~~~~~~~~~~~~
+      |                                                       |                                                      |
+      |                                                       unsigned int                                           insn_bits_t {aka long unsigned int}
+      |                                                    %08lx
+perf_sim.cpp: In function ‘void print_cpu_state(state_t*)’:
+perf_sim.cpp:26:28: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
+   26 |         printf("x%d: 0x%016x\n", r, state->XPR[r]);
+      |                        ~~~~^
+      |                            |
+      |                            unsigned int
+      |                        %016lx
+perf_sim.cpp:28:28: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘const float128_t’ [-Wformat=]
+   28 |         printf("f%d: 0x%016x\n", f, state->FPR[f]);
+      |                        ~~~~^
+      |                            |
+      |                            unsigned int
+perf_sim.cpp:31:23: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
+   31 |     printf("pc: 0x%016x\n", pc);
+      |                   ~~~~^     ~~
+      |                       |     |
+      |                       |     uint64_t {aka long unsigned int}
+      |                       unsigned int
+      |                   %016lx
+perf_sim.cpp: In function ‘int main()’:
+perf_sim.cpp:75:18: warning: format ‘%s’ expects argument of type ‘char*’, but argument 2 has type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} [-Wformat=]
+   75 |         printf("%s, ", ext);
+      |                 ~^
+      |                  |
+      |                  char*
+In file included from cfg.cc:4:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
       |                              ^
-insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    46 |   const bool hlvx : 1 {false};
       |                       ^
-insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from debug_module.cc:8:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from mmu.cc:4:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   47 |   const bool lr : 1 {false};
+      |                     ^
+In file included from devices.cc:2:
+mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   45 |   const bool forced_virt : 1 {false};
+      |                              ^
+mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+   46 |   const bool hlvx : 1 {false};
+      |                       ^
+mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
 In file included from csrs.cc:9:
@@ -50,60 +182,7 @@ insns/../mmu.h:46:23: warning: default member initializers for bit-fields only a
 insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
-In file included from mmu.cc:4:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-In file included from cfg.cc:4:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-arch/decoder.cpp: In member function ‘void Decoder::load_into_decode_queue(InstPtr)’:
-arch/decoder.cpp:14:35: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘reg_t’ {aka ‘long unsigned int’} [-Wformat=]
-   14 |     printf("DECODE:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\n", ins->pc, ins->inst->bits(), ins->inst_cnt);
-      |                                ~~~^                                ~~~~~~~
-      |                                   |                                     |
-      |                                   unsigned int                          reg_t {aka long unsigned int}
-      |                                %08lx
-arch/decoder.cpp:14:51: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘insn_bits_t’ {aka ‘long unsigned int’} [-Wformat=]
-   14 |     printf("DECODE:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\n", ins->pc, ins->inst->bits(), ins->inst_cnt);
-      |                                                ~~~^                         ~~~~~~~~~~~~~~~~~
-      |                                                   |                                        |
-      |                                                   unsigned int                             insn_bits_t {aka long unsigned int}
-      |                                                %08lx
 In file included from processor.cc:10:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-In file included from devices.cc:2:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   45 |   const bool forced_virt : 1 {false};
-      |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   46 |   const bool hlvx : 1 {false};
-      |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
-   47 |   const bool lr : 1 {false};
-      |                     ^
-In file included from debug_module.cc:8:
 mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
       |                              ^
@@ -125,7 +204,7 @@ insns/../mmu.h:47:21: warning: default member initializers for bit-fields only a
    47 |   const bool lr : 1 {false};
       |                     ^
 In file included from insns/../insn_template.h:5,
-                 from insns/sd.cc:3:
+                 from insns/addi.cc:3:
 insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
       |                              ^
@@ -135,14 +214,15 @@ insns/../mmu.h:46:23: warning: default member initializers for bit-fields only a
 insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
-In file included from perf_sim.cpp:6:
-mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+In file included from insns/../insn_template.h:5,
+                 from insns/sd.cc:3:
+insns/../mmu.h:45:30: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    45 |   const bool forced_virt : 1 {false};
       |                              ^
-mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+insns/../mmu.h:46:23: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    46 |   const bool hlvx : 1 {false};
       |                       ^
-mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
+insns/../mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
 In file included from interactive.cc:8:
@@ -165,28 +245,3 @@ mmu.h:46:23: warning: default member initializers for bit-fields only available 
 mmu.h:47:21: warning: default member initializers for bit-fields only available with ‘-std=c++20’ or ‘-std=gnu++20’
    47 |   const bool lr : 1 {false};
       |                     ^
-perf_sim.cpp: In function ‘void print_cpu_state(state_t*)’:
-perf_sim.cpp:25:28: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘long unsigned int’ [-Wformat=]
-   25 |         printf("x%d: 0x%016x\n", r, state->XPR[r]);
-      |                        ~~~~^
-      |                            |
-      |                            unsigned int
-      |                        %016lx
-perf_sim.cpp:27:28: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 3 has type ‘const float128_t’ [-Wformat=]
-   27 |         printf("f%d: 0x%016x\n", f, state->FPR[f]);
-      |                        ~~~~^
-      |                            |
-      |                            unsigned int
-perf_sim.cpp:30:23: warning: format ‘%x’ expects argument of type ‘unsigned int’, but argument 2 has type ‘uint64_t’ {aka ‘long unsigned int’} [-Wformat=]
-   30 |     printf("pc: 0x%016x\n", pc);
-      |                   ~~~~^     ~~
-      |                       |     |
-      |                       |     uint64_t {aka long unsigned int}
-      |                       unsigned int
-      |                   %016lx
-perf_sim.cpp: In function ‘int main()’:
-perf_sim.cpp:74:18: warning: format ‘%s’ expects argument of type ‘char*’, but argument 2 has type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’} [-Wformat=]
-   74 |         printf("%s, ", ext);
-      |                 ~^
-      |                  |
-      |                  char*

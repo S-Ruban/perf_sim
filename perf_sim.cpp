@@ -13,6 +13,7 @@
 
 #include "arch/fetch.h"
 #include "arch/decoder.h"
+#include "arch/scoreboard.h"
 
 using namespace std;
 class simif_t;
@@ -78,21 +79,27 @@ int main()
     memif_t memif(&htif);
     reg_t pc;
 
+    disassembler_t *dis = new disassembler_t(isa);
+
     Fetch fetch_block = Fetch(cpu, &memif, 4, 4);
-    Decoder decoder = Decoder(4, isa, cpu);
+    Decoder decoder = Decoder(4, isa, cpu, dis);
+    Scoreboard scoreboard = Scoreboard(16);
 
     map<string, uint64_t> elf = load_elf("test.elf", &memif, &pc, 64);
-    // target_endian<uint32_t> start_ib = memif.read_uint32(pc);
 
-    print_cpu_state(cpu->get_state());
+    // print_cpu_state(cpu->get_state());
 
     while (cycle < MAX_CYCLE)
     {
-        // fetch(cpu, &memif, &start_pc);
+        printf("\n\nCycle %d\n", cycle);
+        scoreboard.get_insts_from_decode(&decoder);
         decoder.decode(&fetch_block);
         fetch_block.fetch(&pc);
         cycle++;
     }
 
-    print_cpu_state(cpu->get_state());
+    for (string s : dis->rv_insts)
+        cout << s << "\n";
+
+    // print_cpu_state(cpu->get_state());
 }

@@ -2678,6 +2678,9 @@ void NOINLINE disassembler_t::add_insn(disasm_insn_t *insn)
       (insn->get_mask() & MASK1) == MASK1 ? hash(insn->get_match(), MASK1) : (insn->get_mask() & MASK2) == MASK2 ? hash(insn->get_match(), MASK2)
                                                                                                                  : HASH_SIZE;
 
+  // printf("%s\n", insn->get_name());
+  rv_insts.insert(insn->get_name());
+
   chain[idx].push_back(insn);
 }
 

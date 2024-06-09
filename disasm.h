@@ -95,6 +95,8 @@ public:
 
   void add_insn(disasm_insn_t *insn);
 
+  std::set<std::string> rv_insts;
+
 private:
   static const int HASH_SIZE = 255;
   std::vector<const disasm_insn_t *> chain[HASH_SIZE + 1];

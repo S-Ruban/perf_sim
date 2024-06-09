@@ -2,7 +2,6 @@
 
 #include "../processor.h"
 #include "instr.h"
-#include <queue>
 
 static uint32_t ic_cntr;
 
