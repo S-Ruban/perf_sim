@@ -13,16 +13,13 @@ public:
     bool is_decode_queue_empty();
     uint8_t decode_width;
     InstPtr release_inst();
-    const isa_parser_t *isa;
-    processor_t *proc;
     disassembler_t *disasm;
-    Decoder(uint8_t dw, const isa_parser_t *dis, processor_t *cpu, disassembler_t *d)
+    Decoder(uint8_t dw, disassembler_t *d)
     {
         decode_width = dw;
-        isa = dis;
-        proc = cpu;
         disasm = d;
     }
+    std::vector<reg_t> src_regs(InstPtr ins, std::string ins_name);
 
 private:
     std::queue<InstPtr> decode_queue;

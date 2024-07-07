@@ -14,6 +14,8 @@
 #include "arch/fetch.h"
 #include "arch/decoder.h"
 #include "arch/scoreboard.h"
+#include "arch/execute.h"
+#include "arch/commit.h"
 
 using namespace std;
 class simif_t;
@@ -26,9 +28,9 @@ void print_cpu_state(state_t *state)
         printf("x%d: 0x%016x\n", r, state->XPR[r]);
     for (int f = 0; f < 32; f++)
         printf("f%d: 0x%016x\n", f, state->FPR[f]);
-    auto cycle_count = state->mcycle;
-    uint64_t pc = state->pc;
-    printf("pc: 0x%016x\n", pc);
+    // auto cycle_count = state->mcycle;
+    // uint64_t pc = state->pc;
+    // printf("pc: 0x%016x\n", pc);
 }
 
 std::vector<std::pair<reg_t, abstract_mem_t *>> make_mems(const std::vector<mem_cfg_t> &layout)
@@ -82,24 +84,29 @@ int main()
     disassembler_t *dis = new disassembler_t(isa);
 
     Fetch fetch_block = Fetch(cpu, &memif, 4, 4);
-    Decoder decoder = Decoder(4, isa, cpu, dis);
-    Scoreboard scoreboard = Scoreboard(16);
+    Decoder decoder = Decoder(4, dis);
+    Scoreboard scoreboard = Scoreboard(16, 2);
+    Execute execute = Execute(isa, cpu, dis);
+    Commit commit = Commit(&scoreboard, 2);
 
-    map<string, uint64_t> elf = load_elf("test.elf", &memif, &pc, 64);
+    map<string, uint64_t> elf = load_elf("dep_add.elf", &memif, &pc, 64);
 
     // print_cpu_state(cpu->get_state());
 
     while (cycle < MAX_CYCLE)
     {
         printf("\n\nCycle %d\n", cycle);
+        commit.commit_insts();
+        execute.get_inst_from_scoreboard(&scoreboard);
+        scoreboard.display();
         scoreboard.get_insts_from_decode(&decoder);
         decoder.decode(&fetch_block);
         fetch_block.fetch(&pc);
         cycle++;
     }
 
-    for (string s : dis->rv_insts)
-        cout << s << "\n";
+    // for (string s : dis->rv_insts)
+    //     cout << s << "\n";
 
-    // print_cpu_state(cpu->get_state());
+    print_cpu_state(cpu->get_state());
 }

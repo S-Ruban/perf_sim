@@ -19,8 +19,7 @@ void Scoreboard::get_insts_from_decode(Decoder *d)
         InstPtr ins = d->release_inst();
         load_into_scoreboard(ins);
     }
-    if (!is_scoreboard_empty())
-        release_inst();
+    issue();
     printf("\n");
 }
 
@@ -31,15 +30,68 @@ InstPtr Scoreboard::release_inst()
     return inst;
 }
 
-void Scoreboard::issue(InstPtr ins)
+void Scoreboard::issue()
 {
-    if (ins->status == NOT_ISSUED)
+    int i = 0;
+    for (InstPtr ins : scoreboard)
     {
-        ins->status == GOING_TO_ISSUE;
+        if (i >= num_issue)
+            return;
+        if (ins->status != NOT_ISSUED)
+            break;
+        for (reg_t r : ins->dep_regs)
+        {
+            if (!operandForwarded[r])
+                return;
+        }
+        ins->status = ISSUED;
+        operandForwarded[ins->inst->rd()] = false;
+        add_to_execute(ins);
+        i++;
     }
 }
 
 bool Scoreboard::is_scoreboard_empty()
 {
     return scoreboard.empty();
+}
+
+bool Scoreboard::is_execute_queue_empty()
+{
+    return execute_queue.empty();
+}
+
+void Scoreboard::display()
+{
+    for (InstPtr ins : scoreboard)
+        printf("SB:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\texe_unit: %d\n", ins->pc, ins->inst->bits(), ins->inst_cnt, ins->exe_unit);
+    for (InstPtr ins : execute_queue)
+        printf("EQ:\t\t\tPC: 0x%08x\topcode: 0x%08x\ticount=%d\texe_unit: %d\n", ins->pc, ins->inst->bits(), ins->inst_cnt, ins->exe_unit);
+}
+
+void Scoreboard::add_to_execute(InstPtr ins)
+{
+    execute_queue.push_back(ins);
+}
+
+InstPtr Scoreboard::get_from_execute()
+{
+    if (!is_execute_queue_empty())
+    {
+        InstPtr inst = execute_queue.front();
+        execute_queue.erase(execute_queue.begin());
+        return inst;
+    }
+}
+
+void Scoreboard::register_ready(reg_t r)
+{
+    operandForwarded[r] = true;
+}
+
+InstPtr Scoreboard::head()
+{
+    if (is_scoreboard_empty())
+        return NULL;
+    return scoreboard.front();
 }

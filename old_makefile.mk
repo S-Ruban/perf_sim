@@ -1,5 +1,6 @@
 objs = perf_sim.o cachesim.o cfg.o csrs.o extension.o disasm.o isa_parser.o processor.o triggers.o rom.o vector_unit.o mmu.o jtag_dtm.o extensions.o \
-		remote_bitbang.o devices.o dts.o debug_module.o interactive.o sim.o insns/add.o \
+		remote_bitbang.o devices.o dts.o debug_module.o interactive.o sim.o insns/add.o insns/addi.o \
+		decoder.o scoreboard.o fetch.o execute.o
 		fdt.o  fdt_addresses.o  fdt_empty_tree.o  fdt_overlay.o  fdt_ro.o  fdt_rw.o  fdt_strerror.o  fdt_sw.o  fdt_wip.o \
 		context.o device.o dtm.o dummy.o elfloader.o htif.o htif_hexwriter.o htif_pthread.o memif.o option_parser.o rfb.o syscall.o term.o tsi.o \
 		softfloat/bf16_to_f32.o            softfloat/f16_to_f64.o            softfloat/f64_eq.o                 softfloat/s_approxRecip_1Ks.o        softfloat/s_roundPackToBF16.o \
@@ -116,6 +117,9 @@ jtag_dtm.o: jtag_dtm.cc
 insns/add.o: insns/add.cc
 		g++ -c insns/add.cc -g
 
+insns/addi.o: insns/addi.cc
+		g++ -c insns/addi.cc -g
+
 fdt.o: fdt/fdt.c
 			gcc -c fdt/fdt.c -g
 
@@ -190,6 +194,16 @@ tsi.o: fesvr/tsi.cc
 
 interactive.o: interactive.cc
 				g++ -c interactive.cc -g
+
+decoder.o:
+		g++ -c arch/decoder.cpp
+execute.o:
+		g++ -c arch/execute.cpp
+fetch.o:
+		g++ -c arch/fetch.cpp
+scoreboard.o:
+		g++ -c arch/scoreboard.cpp
+
 
 s_subMagsF16.o: softfloat/bf16_to_f32.c
 		gcc -c softfloat/bf16_to_f32.c

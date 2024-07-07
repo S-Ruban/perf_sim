@@ -6,22 +6,16 @@
 enum EXECUTION_UNIT
 {
     NILL,
-    ALU, // ALU insts
-    BJU, // branch/jump insts
-    MOU  // load/store insts
+    ALU, // ALUinsts
+    BJU, // branch/jumpinsts
+    MOU  // load/storeinsts
 };
 
 enum STATUS
 {
     NOT_ISSUED,
-    GOING_TO_ISSUE,
-    ISSUED
-};
-
-struct dep_reg
-{
-    reg_t reg;
-    bool is_data_available;
+    ISSUED,
+    COMPLETED
 };
 
 class Instruction
@@ -31,8 +25,9 @@ public:
     reg_t pc;
     uint32_t inst_cnt;
     EXECUTION_UNIT exe_unit;
-    std::vector<dep_reg> r;
+    std::vector<reg_t> dep_regs;
     STATUS status;
+    std::string inst_name;
 
     Instruction()
     {
@@ -192,153 +187,6 @@ public:
         {"xnor", ALU},
         {"xor", ALU},
         {"xori", ALU},
-    };
-
-    std::unordered_map<std::string, std::vector<reg_t>> src_regs = {
-        {"add", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"add.uw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"addi", std::vector<reg_t>(inst->rs1())},
-        {"addiw", std::vector<reg_t>(inst->rs1())},
-        {"addw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"and", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"andi", std::vector<reg_t>(inst->rs1())},
-        {"andn", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"auipc", std::vector<reg_t>()},
-        {"beq", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"bge", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"bgeu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"blt", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"bltu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"bne", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"c.add", std::vector<reg_t>(inst->rvc_rs1(), inst->rvc_rs2())},
-        {"c.addi", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.addi4spn", std::vector<reg_t>(X_SP)},
-        {"c.addw", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.and", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.andi", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.beqz", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.bnez", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.j", std::vector<reg_t>()},
-        {"c.jal", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.jalr", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.jr", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.lbu", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.lh", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.lhu", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.li", std::vector<reg_t>()},
-        {"c.lui", std::vector<reg_t>()},
-        {"c.lw", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.lwsp", std::vector<reg_t>(X_SP)},
-        {"c.mul", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.mv", std::vector<reg_t>(inst->rvc_rs2())},
-        {"c.not", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.or", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.sb", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.sext.b", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.sext.h", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.sh", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.slli", std::vector<reg_t>(inst->rvc_rs1())},
-        {"c.srai", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.srli", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.sub", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.subw", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.sw", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.swsp", std::vector<reg_t>(X_SP, inst->rvc_rs2())},
-        {"c.xor", std::vector<reg_t>(inst->rvc_rs1s(), inst->rvc_rs2s())},
-        {"c.zext.b", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.zext.h", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"c.zext.w", std::vector<reg_t>(inst->rvc_rs1s())},
-        {"clz", std::vector<reg_t>(inst->rs1())},
-        {"clzw", std::vector<reg_t>(inst->rs1())},
-        {"cpop", std::vector<reg_t>(inst->rs1())},
-        {"cpopw", std::vector<reg_t>(inst->rs1())},
-        {"csrc", std::vector<reg_t>()},
-        {"csrci", std::vector<reg_t>()},
-        {"csrr", std::vector<reg_t>()},
-        {"csrrc", std::vector<reg_t>()},
-        {"csrrci", std::vector<reg_t>()},
-        {"csrrs", std::vector<reg_t>()},
-        {"csrrsi", std::vector<reg_t>()},
-        {"csrrw", std::vector<reg_t>()},
-        {"csrrwi", std::vector<reg_t>()},
-        {"csrs", std::vector<reg_t>()},
-        {"csrsi", std::vector<reg_t>()},
-        {"csrw", std::vector<reg_t>()},
-        {"csrwi", std::vector<reg_t>()},
-        {"ctz", std::vector<reg_t>(inst->rs1())},
-        {"ctzw", std::vector<reg_t>(inst->rs1())},
-        {"czero.eqz", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"czero.nez", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"div", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"divu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"divuw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"divw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"jal", std::vector<reg_t>()},
-        {"jalr", std::vector<reg_t>(inst->rs1())},
-        {"lb", std::vector<reg_t>(inst->rs1())},
-        {"lbu", std::vector<reg_t>(inst->rs1())},
-        {"ld", std::vector<reg_t>(inst->rs1())},
-        {"lh", std::vector<reg_t>(inst->rs1())},
-        {"lhu", std::vector<reg_t>(inst->rs1())},
-        {"lui", std::vector<reg_t>()},
-        {"lw", std::vector<reg_t>(inst->rs1())},
-        {"lwu", std::vector<reg_t>(inst->rs1())},
-        {"max", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"maxu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"min", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"minu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"mul", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"mulh", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"mulhsu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"mulhu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"mulw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"or", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"ori", std::vector<reg_t>(inst->rs1())},
-        {"orn", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"pack", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"packh", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"packw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"rem", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"remu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"remuw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"remw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"rol", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"rolw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"ror", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"rori", std::vector<reg_t>(inst->rs1())},
-        {"roriw", std::vector<reg_t>(inst->rs1())},
-        {"rorw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sb", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sd", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sext.b", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sext.h", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sh", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sh1add", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sh2add", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sh3add", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sll", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"slli", std::vector<reg_t>(inst->rs1())},
-        {"slli.uw", std::vector<reg_t>(inst->rs1())},
-        {"slliw", std::vector<reg_t>(inst->rs1())},
-        {"sllw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"slt", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"slti", std::vector<reg_t>(inst->rs1())},
-        {"sltiu", std::vector<reg_t>(inst->rs1())},
-        {"sltu", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sra", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"srai", std::vector<reg_t>(inst->rs1())},
-        {"sraiw", std::vector<reg_t>(inst->rs1())},
-        {"sraw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"srl", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"srli", std::vector<reg_t>(inst->rs1())},
-        {"srliw", std::vector<reg_t>(inst->rs1())},
-        {"srlw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sub", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"subw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"sw", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"xnor", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"xor", std::vector<reg_t>(inst->rs1(), inst->rs2())},
-        {"xori", std::vector<reg_t>(inst->rs1())},
     };
 };
 
