@@ -19,7 +19,7 @@ public:
         decode_width = dw;
         disasm = d;
     }
-    std::vector<reg_t> src_regs(InstPtr ins, std::string ins_name);
+    std::vector<reg_t> src_regs(InstPtr ins);
 
 private:
     std::queue<InstPtr> decode_queue;

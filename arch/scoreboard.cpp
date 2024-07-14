@@ -39,11 +39,14 @@ void Scoreboard::issue()
             return;
         if (ins->status != NOT_ISSUED)
             break;
+        // printf("Err: 0x%x\t", ins->pc);
         for (reg_t r : ins->dep_regs)
         {
+            // printf("x%d ", r);
             if (!operandForwarded[r])
                 return;
         }
+        // printf("\n");
         ins->status = ISSUED;
         operandForwarded[ins->inst->rd()] = false;
         add_to_execute(ins);

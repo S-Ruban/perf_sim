@@ -1,6 +1,6 @@
 objs = perf_sim.o cachesim.o cfg.o csrs.o extension.o disasm.o isa_parser.o processor.o triggers.o rom.o vector_unit.o mmu.o jtag_dtm.o extensions.o \
 		remote_bitbang.o devices.o dts.o debug_module.o interactive.o sim.o \
-		add.o addi.o ori.o \
+		add.o addi.o ori.o andi.o xori.o div.o divu.o divw.o divuw.o mul.o mulh.o mulw.o mulhu.o mulhsu.o sll.o slli.o sllw.o slliw.o sra.o srai.o sraw.o sraiw.o srl.o srli.o srlw.o srliw.o sub.o subw.o \
 		decoder.o scoreboard.o fetch.o execute.o commit.o \
 		fdt.o  fdt_addresses.o  fdt_empty_tree.o  fdt_overlay.o  fdt_ro.o  fdt_rw.o  fdt_strerror.o  fdt_sw.o  fdt_wip.o \
 		context.o device.o dtm.o dummy.o elfloader.o htif.o htif_hexwriter.o htif_pthread.o memif.o option_parser.o rfb.o syscall.o term.o tsi.o \
@@ -123,6 +123,82 @@ addi.o: insns/addi.cc
 
 ori.o: insns/ori.cc
 		g++ -c insns/ori.cc -g
+
+andi.o: insns/andi.cc
+		g++ -c insns/andi.cc -g
+
+xori.o: insns/xori.cc
+		g++ -c insns/xori.cc -g
+
+div.o: insns/div.cc
+		g++ -c insns/div.cc -g
+
+divu.o: insns/divu.cc
+		g++ -c insns/divu.cc -g
+
+divw.o: insns/divw.cc
+		g++ -c insns/divw.cc -g
+
+divuw.o: insns/divuw.cc
+		g++ -c insns/divuw.cc -g
+
+mul.o: insns/mul.cc
+		g++ -c insns/mul.cc -g
+
+mulw.o: insns/mulw.cc
+		g++ -c insns/mulw.cc -g
+
+mulh.o: insns/mulh.cc
+		g++ -c insns/mulh.cc -g
+
+mulhu.o: insns/mulhu.cc
+		g++ -c insns/mulhu.cc -g
+
+mulhsu.o: insns/mulhsu.cc
+		g++ -c insns/mulhsu.cc -g
+
+sll.o: insns/sll.cc
+		g++ -c insns/sll.cc -g
+
+sllw.o: insns/sllw.cc
+		g++ -c insns/sllw.cc -g
+
+slli.o: insns/slli.cc
+		g++ -c insns/slli.cc -g
+
+slliw.o: insns/slliw.cc
+		g++ -c insns/slliw.cc -g
+
+sra.o: insns/sra.cc
+		g++ -c insns/sra.cc -g
+
+sraw.o: insns/sraw.cc
+		g++ -c insns/sraw.cc -g
+
+srai.o: insns/srai.cc
+		g++ -c insns/srai.cc -g
+
+sraiw.o: insns/sraiw.cc
+		g++ -c insns/sraiw.cc -g
+
+srl.o: insns/srl.cc
+		g++ -c insns/srl.cc -g
+
+srlw.o: insns/srlw.cc
+		g++ -c insns/srlw.cc -g
+
+srli.o: insns/srli.cc
+		g++ -c insns/srli.cc -g
+
+srliw.o: insns/srliw.cc
+		g++ -c insns/srliw.cc -g
+
+sub.o: insns/sub.cc
+		g++ -c insns/sub.cc -g
+
+subw.o: insns/subw.cc
+		g++ -c insns/subw.cc -g
+
 
 fdt.o: fdt/fdt.c
 			gcc -c fdt/fdt.c -g

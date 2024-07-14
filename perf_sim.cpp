@@ -44,7 +44,7 @@ std::vector<std::pair<reg_t, abstract_mem_t *>> make_mems(const std::vector<mem_
     return mems;
 }
 
-int main()
+int main(int argc, char **argv)
 {
     uint32_t cycle = 0;
 
@@ -89,7 +89,7 @@ int main()
     Execute execute = Execute(isa, cpu, dis);
     Commit commit = Commit(&scoreboard, 2);
 
-    map<string, uint64_t> elf = load_elf("dep_add.elf", &memif, &pc, 64);
+    map<string, uint64_t> elf = load_elf("dep_mul.elf", &memif, &pc, 64);
 
     // print_cpu_state(cpu->get_state());
 
